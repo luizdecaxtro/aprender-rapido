@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Curso completo: aprenda qualquer coisa mais rápido com técnicas de memória e repetição espaçada.">
+<meta name="theme-color" content="#2E3A73">
+<title>Aprender Rápido — Memória e Repetição Espaçada</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6F7FB; --ink:#171B2E; --indigo:#2E3A73; --indigo-soft:#5563A8;
+    --amber:#E39A2B; --teal:#2FA88F; --card:#FFFFFF; --muted:#6B7192;
+    --line:#E6E8F0; --line-strong:#D2D6E6; --rose:#C4574F;
+    --shadow:0 1px 2px rgba(23,27,46,.04), 0 8px 24px rgba(23,27,46,.06);
+    --shadow-lift:0 4px 12px rgba(23,27,46,.08), 0 18px 40px rgba(23,27,46,.10);
+    --radius:16px; --radius-sm:10px;
+    --display:'Fraunces',Georgia,serif; --body:'Inter',system-ui,sans-serif; --mono:'Space Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+  ::selection{background:var(--amber);color:#fff}
+  .app{max-width:1180px;margin:0 auto;padding:0 20px;display:grid;grid-template-columns:270px 1fr;gap:32px;align-items:start}
+  header.top{grid-column:1 / -1;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 0 18px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(246,247,251,.88);backdrop-filter:blur(10px);z-index:40;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand .mark{width:38px;height:38px;flex:0 0 38px;border-radius:11px;background:var(--indigo);position:relative;overflow:hidden}
+  .brand .mark svg{position:absolute;inset:0}
+  .brand h1{font-family:var(--display);font-weight:600;font-size:18px;line-height:1.15;letter-spacing:-.01em}
+  .brand span{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--indigo-soft);margin-top:2px}
+  .top-actions{display:flex;align-items:center;gap:10px}
+  .btn{font-family:var(--body);font-size:13.5px;font-weight:600;border:1px solid var(--line-strong);background:var(--card);color:var(--ink);padding:9px 14px;border-radius:999px;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:7px}
+  .btn:hover{border-color:var(--indigo-soft);color:var(--indigo)}
+  .btn.on{background:var(--indigo);color:#fff;border-color:var(--indigo)}
+  .btn.primary{background:var(--amber);border-color:var(--amber);color:#3a2a06}
+  .btn.primary:hover{filter:brightness(1.04);color:#3a2a06}
+  .btn.ghost{border-color:transparent;background:transparent;color:var(--muted)}
+  .btn.ghost:hover{background:#EEF0F7;color:var(--indigo)}
+  nav.side{position:sticky;top:92px;display:flex;flex-direction:column;gap:2px;padding-bottom:40px;max-height:calc(100vh - 110px);overflow-y:auto}
+  nav.side::-webkit-scrollbar{width:8px}
+  nav.side::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:8px}
+  .nav-label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:12px 12px 6px}
+  .nav-mod{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--indigo-soft);padding:10px 12px 4px;display:flex;align-items:center;gap:8px}
+  .nav-mod::before{content:"";width:14px;height:2px;background:var(--line-strong);border-radius:2px}
+  .nav-item{display:flex;align-items:center;gap:11px;padding:8px 12px;border-radius:var(--radius-sm);cursor:pointer;color:var(--ink);font-size:13.5px;font-weight:500;transition:.13s;border:1px solid transparent;text-align:left;width:100%;background:none}
+  .nav-item:hover{background:#EEF0F7}
+  .nav-item.active{background:var(--card);border-color:var(--line);box-shadow:var(--shadow);color:var(--indigo);font-weight:600}
+  .nav-item .num{font-family:var(--mono);font-size:11px;width:22px;height:22px;flex:0 0 22px;display:grid;place-items:center;border-radius:6px;background:#EEF0F7;color:var(--indigo-soft)}
+  .nav-item.active .num{background:var(--indigo);color:#fff}
+  .nav-item.done .num{background:var(--teal);color:#fff}
+  .nav-item.special .num{background:var(--amber);color:#3a2a06}
+  .nav-item .txt{flex:1;min-width:0}
+  .nav-item .tick{opacity:0;color:var(--teal);font-size:12px}
+  .nav-item.done .tick{opacity:1}
+  main{min-width:0;padding-bottom:80px}
+  .view{display:none;animation:fade .35s ease}
+  .view.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .hero{background:var(--indigo);color:#fff;border-radius:22px;padding:40px 38px;position:relative;overflow:hidden;box-shadow:var(--shadow-lift)}
+  .hero .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#B9C1EE;margin-bottom:16px}
+  .hero h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.4vw,46px);line-height:1.05;letter-spacing:-.02em;max-width:16ch}
+  .hero p{margin-top:16px;max-width:52ch;color:#D6DBF3;font-size:16px}
+  .hero .cta-row{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
+  .hero .curve{position:absolute;right:-10px;bottom:-10px;width:min(46%,340px);opacity:.9;pointer-events:none}
+  @media(max-width:640px){.hero .curve{display:none}}
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+  .stat .k{font-family:var(--display);font-size:30px;font-weight:600;color:var(--indigo);line-height:1}
+  .stat .l{font-size:12.5px;color:var(--muted);margin-top:6px}
+  .home-grid{margin-top:30px}
+  .section-h{font-family:var(--display);font-weight:600;font-size:20px;margin-bottom:4px}
+  .section-sub{color:var(--muted);font-size:14px;margin-bottom:18px}
+  .mod-block{margin-bottom:24px}
+  .mod-title{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--indigo-soft);margin:0 0 10px;display:flex;align-items:center;gap:10px}
+  .mod-title .mi{font-family:var(--display);font-size:13px;color:var(--indigo);font-weight:600}
+  .les-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+  .les-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;cursor:pointer;transition:.16s;box-shadow:var(--shadow);position:relative}
+  .les-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-color:var(--line-strong)}
+  .les-card .n{font-family:var(--mono);font-size:11px;color:var(--indigo-soft);letter-spacing:.1em}
+  .les-card h4{font-family:var(--display);font-weight:600;font-size:16px;margin:8px 0 6px;line-height:1.2}
+  .les-card p{font-size:12.5px;color:var(--muted);line-height:1.5}
+  .les-card .badge-done{position:absolute;top:14px;right:14px;color:var(--teal);font-size:14px}
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--indigo-soft);display:flex;align-items:center;gap:10px}
+  .lesson-head h2{font-family:var(--display);font-weight:600;font-size:clamp(24px,3.4vw,34px);line-height:1.1;letter-spacing:-.02em;margin:12px 0 0}
+  .block{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;margin-top:18px;box-shadow:var(--shadow)}
+  .block .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:inline-flex;align-items:center;gap:8px;margin-bottom:10px}
+  .block .tag::before{content:"";width:16px;height:2px;background:var(--amber);border-radius:2px}
+  .block.sci .tag::before{background:var(--teal)}
+  .block.pitfall .tag::before{background:var(--rose)}
+  .block h3{font-family:var(--display);font-weight:600;font-size:18px;margin-bottom:6px}
+  .block p{font-size:15px;color:#2A3050;margin-bottom:10px}
+  .block p:last-child{margin-bottom:0}
+  .block.exercise{background:linear-gradient(180deg,#FFFBF3,#FFF7EA);border-color:#F3E2C0}
+  .block.pitfall{background:linear-gradient(180deg,#FDF4F3,#FCEEEC);border-color:#F0D2CE}
+  .note{font-size:13px;color:var(--muted);font-style:italic;border-left:2px solid var(--line-strong);padding-left:12px;margin-top:12px}
+  .lesson-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:26px;flex-wrap:wrap}
+  .lesson-foot .nav-btns{display:flex;gap:10px}
+  .practice-top{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+  .deck-stats{display:flex;gap:10px;flex-wrap:wrap}
+  .chip{font-family:var(--mono);font-size:12px;padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);display:flex;align-items:center;gap:7px}
+  .chip b{color:var(--indigo)}
+  .chip .dot{width:8px;height:8px;border-radius:50%}
+  .flashcard{background:var(--card);border:1px solid var(--line);border-radius:20px;min-height:280px;padding:34px 30px;box-shadow:var(--shadow-lift);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;cursor:pointer;transition:.15s}
+  .flashcard:hover{border-color:var(--line-strong)}
+  .flashcard .side-label{position:absolute;top:16px;left:20px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .flashcard .lesson-ref{position:absolute;top:16px;right:20px;font-family:var(--mono);font-size:10px;color:var(--indigo-soft)}
+  .flashcard .q{font-family:var(--display);font-weight:600;font-size:clamp(20px,3vw,26px);line-height:1.25;max-width:30ch}
+  .flashcard .a{font-size:16px;color:#2A3050;max-width:46ch;line-height:1.55}
+  .flashcard .hint{margin-top:22px;font-size:12.5px;color:var(--muted)}
+  .flashcard .interval-badge{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:10.5px;color:var(--muted)}
+  .rate-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+  .rate{padding:14px 10px;border-radius:var(--radius-sm);border:1px solid var(--line-strong);background:var(--card);cursor:pointer;font-weight:600;font-size:14px;transition:.14s;display:flex;flex-direction:column;align-items:center;gap:3px}
+  .rate small{font-family:var(--mono);font-size:10px;font-weight:400;color:var(--muted)}
+  .rate.again:hover{border-color:#D96A6A;background:#FDF1F1;color:#B84A4A}
+  .rate.hard:hover{border-color:var(--amber);background:#FFF8EC;color:#9A6A12}
+  .rate.easy:hover{border-color:var(--teal);background:#EEFBF7;color:#1E7D6C}
+  .empty-deck{text-align:center;padding:50px 20px;color:var(--muted)}
+  .empty-deck .big{font-family:var(--display);font-size:22px;color:var(--teal);margin-bottom:8px}
+  .progress-track{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:14px}
+  .progress-fill{height:100%;background:var(--teal);width:0;transition:width .4s ease}
+  .plan-week{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:16px}
+  .day{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);padding:14px;box-shadow:var(--shadow)}
+  .day h5{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--indigo-soft);margin-bottom:8px}
+  .day p{font-size:13px;color:#2A3050}
+  .search{width:100%;padding:12px 16px;border:1px solid var(--line-strong);border-radius:999px;font-family:var(--body);font-size:14px;margin:6px 0 18px;background:var(--card)}
+  .search:focus{outline:none;border-color:var(--indigo-soft)}
+  .gloss-item{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);padding:16px 18px;margin-bottom:10px;box-shadow:var(--shadow)}
+  .gloss-item dt{font-family:var(--display);font-weight:600;font-size:16px;color:var(--indigo);margin-bottom:4px}
+  .gloss-item dd{font-size:14px;color:#2A3050}
+  .quiz-q{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-lift)}
+  .quiz-meta{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.1em;margin-bottom:12px}
+  .quiz-q h3{font-family:var(--display);font-weight:600;font-size:19px;line-height:1.3;margin-bottom:16px}
+  .opt{display:block;width:100%;text-align:left;padding:13px 16px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--card);margin-bottom:10px;cursor:pointer;font-size:14.5px;transition:.13s;color:var(--ink)}
+  .opt:hover{border-color:var(--indigo-soft);background:#F7F8FD}
+  .opt.correct{border-color:var(--teal);background:#EEFBF7;color:#1E7D6C;font-weight:600}
+  .opt.wrong{border-color:var(--rose);background:#FDF1F0;color:#B84A4A}
+  .opt.dim{opacity:.55}
+  .quiz-exp{margin-top:14px;padding:14px 16px;border-radius:var(--radius-sm);background:#F2F4FA;font-size:14px;color:#2A3050;display:none}
+  .quiz-exp.show{display:block}
+  .quiz-exp b{color:var(--indigo)}
+  .quiz-foot{display:flex;justify-content:space-between;align-items:center;margin-top:18px;gap:12px}
+  .quiz-score{font-family:var(--mono);font-size:13px;color:var(--muted)}
+  .quiz-result{text-align:center;padding:44px 20px}
+  .quiz-result .pct{font-family:var(--display);font-size:56px;font-weight:600;color:var(--indigo);line-height:1}
+  .quiz-result .msg{font-size:16px;color:#2A3050;margin:12px 0 20px}
+  .ref-item{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:var(--radius-sm);padding:14px 18px;margin-bottom:10px;box-shadow:var(--shadow)}
+  .ref-item .who{font-weight:600;color:var(--ink)}
+  .ref-item .work{font-style:italic;color:#2A3050}
+  .ref-item .yr{font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .ref-item .desc{font-size:13.5px;color:var(--muted);margin-top:4px}
+  details.faq{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);padding:4px 18px;margin-bottom:10px;box-shadow:var(--shadow)}
+  details.faq summary{cursor:pointer;padding:14px 0;font-weight:600;font-size:15px;color:var(--ink);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+  details.faq summary::-webkit-details-marker{display:none}
+  details.faq summary::after{content:"+";font-family:var(--mono);color:var(--indigo-soft);font-size:18px}
+  details.faq[open] summary::after{content:"–"}
+  details.faq p{font-size:14px;color:#2A3050;padding:0 0 16px}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:12px 20px;border-radius:999px;font-size:13.5px;font-weight:500;opacity:0;pointer-events:none;transition:.28s;z-index:80;box-shadow:var(--shadow-lift)}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  footer.foot{grid-column:1/-1;border-top:1px solid var(--line);padding:22px 0 40px;color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .menu-toggle{display:none}
+  @media(max-width:860px){
+    .app{grid-template-columns:1fr;gap:0}
+    nav.side{position:fixed;top:0;left:0;bottom:0;width:82%;max-width:320px;background:var(--bg);z-index:60;padding:20px 16px;box-shadow:var(--shadow-lift);transform:translateX(-105%);transition:.25s;max-height:100vh}
+    nav.side.open{transform:none}
+    .menu-toggle{display:inline-flex}
+    .scrim{position:fixed;inset:0;background:rgba(23,27,46,.35);opacity:0;pointer-events:none;transition:.25s;z-index:55}
+    .scrim.show{opacity:1;pointer-events:auto}
+    .stat-row{grid-template-columns:1fr}
+    .hero{padding:30px 24px}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 38 38" fill="none">
+          <path d="M4 10 C10 10 12 26 19 26 C26 26 28 14 34 14" stroke="#E39A2B" stroke-width="2.4" stroke-linecap="round"/>
+          <circle cx="19" cy="26" r="2.6" fill="#fff"/>
+          <circle cx="34" cy="14" r="2.6" fill="#2FA88F"/>
+        </svg>
+      </span>
+      <div><h1>Aprender Rápido</h1><span>Memória &amp; Repetição Espaçada</span></div>
+    </div>
+    <div class="top-actions">
+      <button class="btn ghost menu-toggle" id="menuBtn" aria-label="Abrir menu">☰ Menu</button>
+      <button class="btn" id="narrateBtn" title="Ativar/desativar narração">🔊 Narração</button>
+      <button class="btn primary" id="practiceBtn">Praticar agora</button>
+    </div>
+  </header>
+  <nav class="side" id="sideNav" aria-label="Navegação do curso">
+    <button class="nav-item special" data-go="home"><span class="num">★</span><span class="txt">Início</span><span class="tick">✓</span></button>
+    <div id="navLessons"></div>
+    <div class="nav-label">Ferramentas</div>
+    <button class="nav-item special" data-go="practice"><span class="num">⚡</span><span class="txt">Praticar (flashcards)</span></button>
+    <button class="nav-item special" data-go="quiz"><span class="num">?</span><span class="txt">Quiz de autoavaliação</span></button>
+    <button class="nav-item special" data-go="plan"><span class="num">✎</span><span class="txt">Meu plano de estudo</span></button>
+    <div class="nav-label">Referência</div>
+    <button class="nav-item special" data-go="glossary"><span class="num">A</span><span class="txt">Glossário</span></button>
+    <button class="nav-item special" data-go="references"><span class="num">§</span><span class="txt">Referências</span></button>
+    <button class="nav-item special" data-go="faq"><span class="num">i</span><span class="txt">Perguntas frequentes</span></button>
+  </nav>
+  <main>
+    <section class="view active" id="view-home">
+      <div class="hero">
+        <div class="eyebrow">Curso completo · 14 aulas · 5 módulos</div>
+        <h2>Você não tem memória ruim. Você tem um método ruim.</h2>
+        <p>Aprenda a estudar do jeito que a ciência da memória recomenda: espaçando revisões, testando-se e trocando o esforço que dá "sensação boa" pelo esforço que realmente fixa. Este curso pratica o que ensina.</p>
+        <div class="cta-row">
+          <button class="btn primary" data-go="lesson-0">Começar pela Aula 1 →</button>
+          <button class="btn" data-go="practice" style="background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.25)">Ir para os flashcards</button>
+        </div>
+        <svg class="curve" viewBox="0 0 340 220" fill="none" aria-hidden="true">
+          <path d="M10 40 C60 40 70 150 130 158 C150 160 152 120 160 118 C210 112 216 178 270 182 C285 183 288 150 292 148" stroke="#B9C1EE" stroke-width="2" stroke-dasharray="4 5" opacity=".7"/>
+          <path d="M10 40 C60 40 70 150 130 158" stroke="#E39A2B" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M130 96 C150 100 152 150 160 118" stroke="#2FA88F" stroke-width="2.6" stroke-linecap="round" opacity=".9"/>
+          <circle cx="130" cy="96" r="3.4" fill="#2FA88F"/><circle cx="160" cy="118" r="3.4" fill="#fff"/>
+        </svg>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><div class="k">14</div><div class="l">aulas curtas, cada uma com exercício e “erros comuns”</div></div>
+        <div class="stat"><div class="k" id="stat-cards">—</div><div class="l">flashcards com agendamento automático</div></div>
+        <div class="stat"><div class="k" id="stat-progress">0%</div><div class="l">do curso concluído por você</div></div>
+      </div>
+      <div class="home-grid">
+        <h3 class="section-h">O programa do curso</h3>
+        <p class="section-sub">Cinco módulos, das bases da memória até montar sua própria rotina. Comece do início ou pule para o que precisa — seu progresso fica salvo neste navegador.</p>
+        <div id="homeModules"></div>
+      </div>
+    </section>
+    <section class="view" id="view-lesson"></section>
+    <section class="view" id="view-practice">
+      <div class="lesson-head"><div class="kicker">Ferramenta · Repetição espaçada</div><h2>Praticar com flashcards</h2></div>
+      <p class="section-sub" style="margin-top:10px">O sistema mostra primeiro os cards que você está prestes a esquecer. Avalie sua resposta com honestidade — é o esforço de lembrar que fortalece a memória.</p>
+      <div class="practice-top"><div class="deck-stats" id="deckStats"></div><button class="btn ghost" id="resetDeck">↺ Reiniciar baralho</button></div>
+      <div id="practiceArea"></div>
+    </section>
+    <section class="view" id="view-quiz">
+      <div class="lesson-head"><div class="kicker">Ferramenta · Autoavaliação</div><h2>Quiz do curso</h2></div>
+      <p class="section-sub" style="margin-top:10px">Doze perguntas para checar o que ficou. Errar aqui é bom: mostra exatamente o que revisar.</p>
+      <div id="quizArea"></div>
+    </section>
+    <section class="view" id="view-plan">
+      <div class="lesson-head"><div class="kicker">Ferramenta · Rotina</div><h2>Meu plano de estudo</h2></div>
+      <p class="section-sub" style="margin-top:10px">Um exemplo de semana que junta todas as técnicas do curso. Consistência vale mais que intensidade: sessões curtas e regulares vencem maratonas esporádicas.</p>
+      <div class="plan-week" id="planWeek"></div>
+      <div class="block" style="margin-top:22px"><div class="tag">Rotina de cada sessão</div>
+        <p>1. Recupere o que já viu <em>antes</em> de reabrir o material (folha em branco). 2. Estude o bloco novo. 3. Crie 3–5 flashcards. 4. Revise o baralho na aba <strong>Praticar</strong>. No fim da semana, faça uma revisão intercalada misturando tudo.</p></div>
+    </section>
+    <section class="view" id="view-glossary">
+      <div class="lesson-head"><div class="kicker">Referência · Termos</div><h2>Glossário</h2></div>
+      <input class="search" id="glossSearch" placeholder="Buscar termo… (ex.: chunking, Leitner, Pomodoro)">
+      <dl id="glossList"></dl>
+    </section>
+    <section class="view" id="view-references">
+      <div class="lesson-head"><div class="kicker">Referência · Fontes</div><h2>Referências</h2></div>
+      <div class="block sci" style="margin-top:14px"><span class="tag">Aviso de honestidade</span>
+        <p>Estas são <strong>obras e autores reais</strong>. Seguindo o princípio editorial do curso, nada aqui foi inventado — mas os dados de publicação (editora, edição, ano exato, páginas) devem ser <strong>confirmados na fonte original</strong> antes de qualquer citação formal, por exemplo em ABNT.</p></div>
+      <div id="refList" style="margin-top:16px"></div>
+    </section>
+    <section class="view" id="view-faq">
+      <div class="lesson-head"><div class="kicker">Referência · Dúvidas</div><h2>Perguntas frequentes</h2></div>
+      <div id="faqList" style="margin-top:16px"></div>
+    </section>
+    <footer class="foot"><span>Curso “Aprender Rápido” · DeCastro | O Canal do Conhecimento</span><span>Progresso salvo localmente no seu navegador</span></footer>
+  </main>
+</div>
+<div class="scrim" id="scrim"></div>
+<div class="toast" id="toast"></div>
+<script>
+const MODULES = [
+  { t:"Fundamentos: como a memória funciona", ids:[0,1] },
+  { t:"As técnicas que comprovadamente funcionam", ids:[2,3,4,5] },
+  { t:"Codificar com profundidade", ids:[6,7,8] },
+  { t:"Foco, corpo e mente", ids:[9,10,11] },
+  { t:"Colocar em prática", ids:[12,13] }
+];
+const LESSONS = [
+  { title:"Por que esquecemos", short:"A curva do esquecimento",
+    goal:"Entender que esquecer é um processo natural e previsível — e que dá para usá-lo a seu favor em vez de brigar com ele.",
+    concept:["Logo depois de aprender algo, começamos a esquecer. A perda é mais rápida nas primeiras horas e dias, e vai desacelerando com o tempo. É isso que se costuma chamar de <strong>curva do esquecimento</strong>.","A boa notícia: cada vez que você revisa antes de esquecer por completo, a curva fica menos íngreme — a informação passa a durar mais. Esquecer não é o inimigo; estudar de forma que ignore o esquecimento é."],
+    science:["<strong>Hermann Ebbinghaus</strong>, no fim do século XIX, foi o primeiro a estudar isso de forma sistemática: memorizava sílabas sem sentido e media quanto recuperava após diferentes intervalos.","Acredito que os valores exatos da curva variam bastante conforme o material e a pessoa — evite decorar percentuais como se fossem lei. O formato geral (queda rápida no início) é o que importa."],
+    pitfall:"Achar que “esquecer” significa ter memória ruim. Esquecer é o comportamento padrão do cérebro; o problema quase sempre está no método, não em você.",
+    exercise:"Pense em algo que você “aprendeu” só para uma prova e esqueceu poucas semanas depois. Escreva em uma frase <em>por que</em> acha que aquilo não ficou. Guarde: as próximas aulas vão explicar.",
+    cards:[{q:"O que é a “curva do esquecimento”?",a:"A ideia de que, após aprender algo, esquecemos rápido no início e mais devagar depois — a menos que revisemos."},{q:"Quem estudou a curva do esquecimento pela primeira vez de forma sistemática?",a:"Hermann Ebbinghaus, no fim do século XIX."},{q:"Por que “decorar na véspera” costuma falhar?",a:"Sem revisões espaçadas, a informação recém-aprendida é esquecida muito rápido."}]},
+  { title:"Como a memória funciona", short:"Memória de trabalho e chunking",
+    goal:"Entender, em linhas gerais, como guardamos informação — e por que agrupar é a chave para caber mais na cabeça.",
+    concept:["A informação nova passa primeiro por uma espécie de mesa de trabalho — a <strong>memória de trabalho</strong> — de capacidade bem limitada e curta duração. Só parte do que entra ali é consolidada na <strong>memória de longo prazo</strong>, que é vasta e duradoura.","Como a mesa é pequena, o truque é <strong>agrupar</strong> pedaços soltos em blocos com significado — o <em>chunking</em>. A sequência 2 1 9 8 7 6 5 4 3 2 vira fácil como (21) 98765-4321: cada bloco ocupa “um espaço” em vez de dez."],
+    science:["A ideia de que a memória de trabalho lida com poucos itens por vez foi popularizada por <strong>George Miller</strong> num artigo clássico de 1956, “O número mágico sete, mais ou menos dois”.","Acredito que pesquisas posteriores sugeriram números até menores conforme o caso — o ponto prático permanece: a capacidade é pequena, então agrupe."],
+    pitfall:"Tentar guardar itens soltos e sem sentido. Sem agrupar e sem conectar, você sobrecarrega a mesa de trabalho e quase nada chega ao longo prazo.",
+    exercise:"Pegue uma lista que precise decorar (um processo, uma fórmula, uma sequência). Agrupe-a em 3 a 5 blocos com significado e dê um nome a cada bloco. Decore os nomes primeiro.",
+    cards:[{q:"O que é memória de trabalho?",a:"Uma “mesa de trabalho” mental de capacidade limitada e curta duração, por onde a informação nova passa antes de (talvez) ir ao longo prazo."},{q:"O que é chunking?",a:"Agrupar itens soltos em blocos com significado, para caber mais na memória de trabalho."},{q:"Quem popularizou o “número mágico sete”?",a:"George Miller, em um artigo clássico de 1956."}]},
+  { title:"O efeito do espaçamento", short:"Espaçar vence maratonar",
+    goal:"Entender por que a mesma quantidade de tempo rende muito mais quando é distribuída em várias sessões.",
+    concept:["Estudar 1 hora por dia durante 5 dias fixa muito mais do que 5 horas seguidas num único dia, sendo o mesmo tempo total. Esse ganho tem nome: <strong>efeito do espaçamento</strong>.","O momento ideal de revisar é <em>pouco antes</em> de você começar a esquecer. Aí o esforço de recuperar é maior — e é esse esforço que reforça a memória para a próxima vez."],
+    science:["O efeito do espaçamento é um dos achados mais replicados da psicologia da memória, observado desde Ebbinghaus e confirmado por décadas de estudos.","É o princípio que sustenta toda a repetição espaçada da Aula 5."],
+    pitfall:"Deixar tudo para a véspera achando que “rende mais sob pressão”. Rende no susto e evapora logo depois da prova.",
+    exercise:"Pegue um cronograma seu do tipo “estudar tudo no domingo” e reescreva-o como “um pouco por dia durante a semana”. Não aumente o tempo total — só espalhe.",
+    cards:[{q:"O que é o efeito do espaçamento?",a:"Distribuir o estudo em sessões espaçadas retém mais do que a mesma quantidade de tempo numa única maratona."},{q:"O que é “cramming”?",a:"Concentrar todo o estudo numa única sessão intensa — útil para o curtíssimo prazo, ruim para a retenção duradoura."},{q:"Qual o melhor momento para revisar?",a:"Pouco antes de começar a esquecer, para reforçar a memória no ponto certo."}]},
+  { title:"Prática de recuperação", short:"Testar-se vence reler",
+    goal:"Descobrir que tentar lembrar (testar-se) é mais poderoso do que reler ou revisar passivamente.",
+    concept:["Reler dá a sensação confortável de que você sabe. Mas o que fortalece a memória é o oposto: fechar o material e <strong>tentar puxar a informação da cabeça</strong>. Isso se chama prática de recuperação (ou recuperação ativa).","Cada vez que você recupera algo com esforço, torna aquela lembrança mais fácil de acessar depois. Reler é passivo; recuperar é o exercício que treina a memória."],
+    science:["O <strong>efeito de testar</strong> (testing effect) tem em <strong>Henry Roediger</strong> e <strong>Jeffrey Karpicke</strong> duas referências centrais.","A ideia aparece de forma acessível no livro <em>Make It Stick</em> (2014), de Peter Brown, Henry Roediger e Mark McDaniel. Você deve conferir a obra diretamente para citar dados dela."],
+    pitfall:"Reler achando que está estudando. Reler dá familiaridade e conforto — não memória de recuperação. Familiar não é o mesmo que sabido.",
+    exercise:"Escolha algo que estudou recentemente. Feche tudo e, numa folha em branco, escreva do zero tudo que lembrar. Só depois reabra e confira o que faltou — é isso que você precisa revisar.",
+    cards:[{q:"O que é prática de recuperação?",a:"Tentar lembrar ativamente a informação (testar-se), em vez de reencontrá-la relendo."},{q:"Por que testar-se supera reler?",a:"O esforço de puxar da memória fortalece a própria memória; reler é passivo e gera falsa sensação de domínio."},{q:"Que pesquisadores são referência no efeito de testar?",a:"Henry Roediger e Jeffrey Karpicke (ideia também resumida no livro Make It Stick)."}]},
+  { title:"Repetição espaçada na prática", short:"Flashcards que se agendam",
+    goal:"Transformar espaçamento + recuperação numa ferramenta concreta: flashcards com intervalos crescentes.",
+    concept:["Junte as duas aulas anteriores e você tem a <strong>repetição espaçada</strong>: revisar cada item em intervalos que aumentam a cada acerto (1 dia, 3 dias, 7 dias…), revisando mais os difíceis e menos os fáceis.","Cada card é uma pergunta que obriga você a recuperar a resposta. Acertou fácil? O sistema espera mais para mostrar de novo. Errou? Ele volta logo. É o que o baralho deste curso faz na aba <strong>Praticar</strong>."],
+    science:["Uma versão analógica é o <strong>sistema Leitner</strong>, de Sebastian Leitner: fichas em caixas, onde o acerto avança a ficha para uma caixa revisada com menos frequência e o erro a devolve à primeira.","Versões digitais populares incluem o algoritmo do <strong>SuperMemo</strong> (de Piotr Woźniak) e o <strong>Anki</strong>. Acredito que existam variações mais novas de algoritmo; vale verificar a documentação da ferramenta que você usar."],
+    pitfall:"Fazer cards enormes, com parágrafos inteiros. Um card = uma ideia, uma pergunta, uma resposta curta. Card grande demais você nunca revisa direito.",
+    exercise:"Crie 5 flashcards sobre algo que você estuda de verdade. Regra: a frente é uma <em>pergunta</em> (não um tópico); o verso, uma resposta curta.",
+    cards:[{q:"O que é repetição espaçada?",a:"Revisar cada item em intervalos crescentes, revisando mais os difíceis e menos os fáceis."},{q:"O que é o sistema Leitner?",a:"Um método de fichas em caixas (Sebastian Leitner): acertos avançam a ficha; erros a devolvem à primeira caixa."},{q:"Cite ferramentas digitais de repetição espaçada.",a:"O SuperMemo (algoritmo de Piotr Woźniak) e o Anki."}]},
+  { title:"Intercalação", short:"Misturar em vez de blocos",
+    goal:"Entender por que alternar entre assuntos supera estudar um de cada vez até esgotar.",
+    concept:["O instinto é estudar em blocos: só o assunto A até dominar, depois só o B. A pesquisa sugere o contrário — <strong>alternar</strong> entre assuntos ou tipos de problema (A, B, C, A, C, B…) costuma render mais no longo prazo.","Por quê? Ao trocar de assunto você é obrigado a recuperar de novo e a decidir <em>qual</em> abordagem usar — habilidade que o bloco fixo não treina. Parece mais difícil e mais lento; e é esse desconforto que consolida."],
+    science:["A intercalação (interleaving) foi estudada especialmente em contextos como matemática e categorização de exemplos.","Ela se conecta ao conceito de “dificuldades desejáveis”, tratado na Aula 12."],
+    pitfall:"Desistir porque “está errando mais”. O erro no início é esperado — é sinal de que o cérebro está trabalhando, não de fracasso.",
+    exercise:"Na próxima sessão, em vez de 10 exercícios do mesmo tipo em sequência, misture 3 tipos diferentes de problema. Você vai errar mais no começo — anote como se sente e compare depois de alguns dias.",
+    cards:[{q:"O que é intercalação (interleaving)?",a:"Alternar entre tópicos ou tipos de problema em vez de estudar um assunto por vez em blocos."},{q:"Por que a intercalação parece mais difícil?",a:"Porque exige recuperar e escolher a abordagem certa a cada troca — e esse esforço é o que consolida."},{q:"Quando a intercalação é mais útil?",a:"Quando os assuntos ou tipos de problema podem ser confundidos entre si — ela treina a discriminar qual método usar."}]},
+  { title:"Elaboração e codificação dupla", short:"Conectar e visualizar",
+    goal:"Aprender duas formas de tornar a memória mais rica e mais fácil de acessar.",
+    concept:["<strong>Elaboração</strong> é explicar o conteúdo com suas palavras e conectá-lo ao que você já sabe. Pergunte “por quê?” e “como isso se liga a algo que já conheço?”. Mais conexões = mais “ganchos” para lembrar.","<strong>Codificação dupla</strong> é combinar palavra e imagem: um diagrama, um esquema, um desenho ao lado da explicação. Os canais verbal e visual se reforçam, dando duas rotas para a mesma memória."],
+    science:["A codificação dupla vem da <strong>teoria da dupla codificação</strong>, de Allan Paivio: processamos informação verbal e visual por canais distintos que se complementam."],
+    pitfall:"Achar que “ver” um infográfico pronto basta. A codificação dupla funciona quando você mesmo gera a imagem ou a explicação — não quando só consome algo pronto.",
+    exercise:"Pegue um conceito difícil. Primeiro, explique-o em voz alta com uma analogia inventada por você. Depois, desenhe um pequeno diagrama dele. Não precisa ser bonito — precisa ser <em>seu</em>.",
+    cards:[{q:"O que é elaboração?",a:"Explicar com suas palavras e conectar o novo ao que já se sabe, perguntando “por quê?” e “como se liga?”."},{q:"O que é codificação dupla?",a:"Combinar informação verbal e visual (palavra + imagem), pois os dois canais se reforçam. Teoria de Allan Paivio."},{q:"Qual pergunta impulsiona a elaboração?",a:"“Por quê?” e “como isso se conecta ao que eu já sei?”."}]},
+  { title:"A técnica Feynman", short:"Ensinar para aprender",
+    goal:"Usar a explicação como teste: se você não consegue explicar de forma simples, ainda não entendeu.",
+    concept:["A <strong>técnica Feynman</strong> é um ciclo de quatro passos: (1) escolha um conceito; (2) explique-o em voz alta como se ensinasse a uma criança, sem jargão; (3) marque onde travou ou apelou para termos difíceis — ali está o buraco; (4) volte à fonte, preencha e simplifique de novo.","Ensinar (ou fingir que ensina) é recuperação e elaboração ao mesmo tempo: você precisa puxar a informação da memória e reorganizá-la em palavras suas."],
+    science:["O método leva o nome do físico <strong>Richard Feynman</strong>, famoso por explicar ideias complexas de forma simples.","Para honestidade: é um método <em>popularizado a partir do estilo dele</em>, não uma técnica que Feynman tenha publicado formalmente com esse nome. Trate “técnica Feynman” como rótulo consagrado, não como citação de obra."],
+    pitfall:"Confundir “reconhecer” com “saber explicar”. Você reconhece um conceito ao lê-lo e ainda assim pode não conseguir explicá-lo — e só a explicação revela o buraco.",
+    exercise:"Escolha um conceito das aulas anteriores e explique-o em voz alta, do zero, para uma pessoa imaginária de 12 anos. Onde usar uma palavra difícil sem definir, pare e anote: é o que revisar.",
+    cards:[{q:"Quais são os passos da técnica Feynman?",a:"Escolher o conceito; explicar simples e sem jargão; identificar onde travou; voltar à fonte e simplificar de novo."},{q:"Por que ensinar ajuda a aprender?",a:"Porque combina recuperação (puxar da memória) e elaboração (reorganizar em palavras suas)."},{q:"“Técnica Feynman” é uma obra publicada por Feynman?",a:"Não. É um método popularizado a partir do estilo dele de explicar; o nome é um rótulo consagrado."}]},
+  { title:"Mnemônicos e o palácio da memória", short:"Atalhos para o que é arbitrário",
+    goal:"Conhecer atalhos para memorizar listas, sequências e termos difíceis quando há pouco significado a que se agarrar.",
+    concept:["<strong>Mnemônicos</strong> dão estrutura ao que é arbitrário: acrósticos (uma frase cujas iniciais lembram a lista), rimas, associações visuais absurdas. Quanto mais estranha e vívida a imagem, melhor ela gruda.","O <strong>palácio da memória</strong> (método dos loci) é o mnemônico mais potente para sequências: percorra mentalmente um lugar familiar — sua casa — e “deposite” cada item num cômodo, com uma imagem marcante. Para recuperar, refaça o percurso."],
+    science:["O método dos loci é antigo — a tradição clássica o atribui ao poeta grego Simônides de Ceos — e continua sendo a base das competições de memória modernas."],
+    pitfall:"Usar mnemônico para tudo. Ele é ótimo para material arbitrário (listas, nomes, ordem), mas não substitui a compreensão. Entenda primeiro; memorize “de cor” só o necessário.",
+    exercise:"Escolha uma lista de 5 a 7 itens que precise saber em ordem. Percorra sua casa e coloque cada item num cômodo, com uma imagem exagerada. Feche os olhos e refaça o percurso.",
+    cards:[{q:"O que é o método dos loci (palácio da memória)?",a:"Associar cada item a um ponto de um lugar familiar percorrido mentalmente, para lembrar sequências."},{q:"Quando um mnemônico é mais útil?",a:"Para material arbitrário (listas, nomes, ordem) — não como substituto da compreensão."},{q:"A quem a tradição clássica atribui o método dos loci?",a:"Ao poeta grego Simônides de Ceos."}]},
+  { title:"Foco e distrações", short:"O método Pomodoro",
+    goal:"Proteger a atenção, que é o gargalo de todo estudo — nenhuma técnica funciona com a cabeça em dez lugares.",
+    concept:["Aprender exige atenção sustentada, e trocar de tarefa toda hora cobra um preço: cada interrupção deixa um “rastro” que atrapalha a tarefa seguinte. O celular por perto já basta para fragmentar o foco.","O <strong>método Pomodoro</strong> dá uma estrutura simples: cerca de 25 minutos de foco total em uma só coisa, seguidos de uma pausa curta (~5 min); a cada quatro ciclos, uma pausa maior. Saber que a pausa vem chegando ajuda a resistir à distração agora."],
+    science:["A técnica Pomodoro foi criada por <strong>Francesco Cirillo</strong> no fim dos anos 1980.","Acredito que os intervalos exatos (25/5) sejam uma convenção prática, não um número mágico — ajuste ao seu ritmo, mantendo o princípio de blocos focados com pausas."],
+    pitfall:"Estudar com o celular ao lado “só por precaução”. A mera presença dele divide a atenção. Deixe-o longe e fora de vista durante o bloco.",
+    exercise:"Faça um bloco Pomodoro hoje: 25 minutos, uma só tarefa, celular em outro cômodo. Anote quantas vezes deu vontade de se distrair — e que você aguentou até a pausa.",
+    cards:[{q:"Em que consiste o método Pomodoro?",a:"Blocos de ~25 min de foco total seguidos de pausas curtas; a cada 4 ciclos, uma pausa maior."},{q:"Quem criou a técnica Pomodoro?",a:"Francesco Cirillo, no fim dos anos 1980."},{q:"Por que o celular por perto atrapalha mesmo em silêncio?",a:"Sua simples presença divide a atenção e fragmenta o foco."}]},
+  { title:"Sono, exercício e memória", short:"Aprender fora da mesa",
+    goal:"Entender que boa parte do aprendizado acontece longe da mesa de estudo — enquanto você dorme e se movimenta.",
+    concept:["Grande parte da <strong>consolidação</strong> da memória — transformar o aprendido do dia em memória estável — acontece durante o <strong>sono</strong>. Virar a noite estudando costuma sair pela culatra: você troca justamente o período em que o cérebro fixaria o conteúdo.","O <strong>exercício físico</strong> regular também favorece memória e atenção. Não precisa nada radical: movimento moderado e constante já ajuda o cérebro a trabalhar melhor."],
+    science:["A ligação entre sono e consolidação da memória é bem documentada na neurociência.","Acredito que os mecanismos e números específicos variem entre estudos — o consenso prático é: dormir mal prejudica o que você aprendeu."],
+    pitfall:"A “virada de noite” antes da prova. Você ganha algumas horas e perde a consolidação do sono e a atenção do dia seguinte — um mau negócio.",
+    exercise:"Nas próximas revisões importantes, programe uma sessão à noite e uma revisão curta na manhã seguinte, depois de dormir. Compare a retenção com a de uma maratona sem dormir.",
+    cards:[{q:"Qual o papel do sono na aprendizagem?",a:"Boa parte da consolidação da memória ocorre durante o sono; dormir mal prejudica a retenção."},{q:"Por que “virar a noite” antes da prova costuma piorar o resultado?",a:"Troca-se o sono que consolidaria o conteúdo, e ainda se perde atenção no dia seguinte."},{q:"O exercício físico ajuda no aprendizado?",a:"Sim; movimento moderado e regular favorece memória e atenção."}]},
+  { title:"As ilusões de aprendizagem", short:"Quando “parece que sabe”",
+    goal:"Reconhecer quando a sensação de estar aprendendo engana — e por que o método mais difícil costuma ser o melhor.",
+    concept:["Reler e grifar geram <strong>fluência</strong>: o texto fica familiar e você sente que domina. Mas familiaridade não é memória — na hora de recuperar sem o material na frente, o buraco aparece.","Os métodos que funcionam (recuperação, espaçamento, intercalação) têm algo em comum: parecem menos eficazes <em>no momento</em> porque exigem esforço. Robert Bjork chama esse esforço produtivo de <strong>“dificuldades desejáveis”</strong>: obstáculos que atrapalham no curto prazo e ajudam no longo."],
+    science:["O conceito de <strong>dificuldades desejáveis</strong> (desirable difficulties) é associado a <strong>Robert Bjork</strong>.","A capacidade de julgar o próprio aprendizado chama-se metacognição — e a lição é: desconfie do método que só dá conforto."],
+    pitfall:"Escolher o método pela sensação. O que dá conforto (reler, grifar) engana; prefira o que exige esforço de recuperar.",
+    exercise:"Liste seus 3 hábitos de estudo que dão “sensação boa” (reler, grifar, assistir de novo, copiar). Ao lado de cada um, escreva com qual técnica do curso você poderia substituí-lo. Troque um só, para começar.",
+    cards:[{q:"O que é a “ilusão de fluência”?",a:"A sensação de domínio gerada por reler/grifar, que não corresponde à retenção real."},{q:"O que são “dificuldades desejáveis”?",a:"Obstáculos que tornam o estudo mais difícil no momento, mas melhoram o aprendizado duradouro. Conceito de Robert Bjork."},{q:"O que é metacognição?",a:"A capacidade de julgar o próprio aprendizado — e de perceber quando a sensação de domínio está enganando."}]},
+  { title:"Anotações e leitura ativa", short:"Método Cornell + SQ3R",
+    goal:"Transformar leitura e anotações — normalmente passivas — em atos de recuperação e organização.",
+    concept:["<strong>Método Cornell</strong>: divida a página em três áreas — coluna estreita à esquerda (perguntas/palavras-chave), coluna larga à direita (anotações) e faixa embaixo (resumo em suas palavras). Depois, tampe a coluna direita e use as palavras-chave para se testar. A anotação vira flashcard.","<strong>SQ3R</strong> é um roteiro de leitura ativa em cinco passos: <em>Survey</em> (folhear e mapear), <em>Question</em> (transformar títulos em perguntas), <em>Read</em> (ler buscando responder), <em>Recite</em> (recuperar de cabeça) e <em>Review</em> (revisar). O segredo está no <em>Recite</em>: fechar o texto e recuperar."],
+    science:["O método Cornell foi desenvolvido por <strong>Walter Pauk</strong>, na Universidade Cornell. O SQ3R foi proposto por <strong>Francis P. Robinson</strong>, por volta dos anos 1940.","Você deve confirmar datas e edições exatas antes de citá-las formalmente."],
+    pitfall:"Anotar transcrevendo tudo. Copiar palavra por palavra é passivo; anotar bem é resumir e perguntar com as suas próprias palavras.",
+    exercise:"Leia um texto curto usando SQ3R: antes de ler a fundo, transforme cada subtítulo em pergunta; depois de ler, feche o texto e responda de cabeça.",
+    cards:[{q:"Como é dividida a página no método Cornell?",a:"Coluna de palavras-chave/perguntas, área de anotações e uma faixa de resumo em suas palavras."},{q:"O que significam as etapas do SQ3R?",a:"Survey, Question, Read, Recite, Review — folhear, perguntar, ler, recuperar e revisar."},{q:"Qual a etapa decisiva do SQ3R?",a:"Recite: fechar o texto e recuperar de cabeça (prática de recuperação)."}]},
+  { title:"Seu sistema pessoal de estudo", short:"Juntando tudo",
+    goal:"Integrar todas as técnicas numa rotina realista e sustentável.",
+    concept:["Um sistema simples cabe em cinco verbos: <strong>capturar</strong> (virar o que estuda em flashcards/notas), <strong>espaçar</strong> (revisar em intervalos crescentes), <strong>recuperar</strong> (testar-se em vez de reler), <strong>intercalar</strong> (misturar assuntos) e <strong>revisar hábitos</strong> (cortar o que só dá conforto).","O erro mais comum não é escolher a técnica errada — é a falta de constância. <strong>Consistência vence intensidade</strong>: 25 minutos por dia batem 4 horas uma vez por mês."],
+    science:["Nenhuma técnica isolada é mágica. O ganho vem de combiná-las e sustentá-las ao longo do tempo — o objetivo da aba <strong>Meu plano de estudo</strong>."],
+    pitfall:"Montar um plano ambicioso demais. Plano que você não cumpre não existe; comece pequeno o bastante para não falhar.",
+    exercise:"Monte seu plano de UMA semana usando a aba “Meu plano de estudo” como modelo. Defina: o que estudar, quantos minutos por dia e em quais dias só revisar o baralho. Comece pequeno.",
+    cards:[{q:"Qual a estrutura de um sistema pessoal de estudo?",a:"Capturar → espaçar → recuperar → intercalar → revisar hábitos."},{q:"O que importa mais: intensidade ou consistência?",a:"Consistência. Sessões curtas e regulares vencem maratonas esporádicas."},{q:"Por que começar pequeno?",a:"Porque a constância vem de metas cumpríveis; um plano grande demais quebra a consistência, que é o que mais importa."}]}
+];
+const PLAN = [{d:"Segunda",t:"Estudo novo + criar flashcards do que viu."},{d:"Terça",t:"Revisar baralho (recuperação) + 1 bloco novo."},{d:"Quarta",t:"Estudo novo + flashcards. Nada de reler passivo."},{d:"Quinta",t:"Revisar baralho + exercícios intercalados."},{d:"Sexta",t:"Estudo novo curto + flashcards."},{d:"Sábado",t:"Revisão intercalada: misture tudo da semana."},{d:"Domingo",t:"Descanso ou revisão leve só dos cards difíceis."}];
+const GLOSSARY = [["Curva do esquecimento","Padrão em que esquecemos rápido no início e mais devagar depois, a menos que revisemos."],["Memória de trabalho","“Mesa de trabalho” mental de capacidade limitada por onde a informação nova passa."],["Memória de longo prazo","Armazenamento vasto e duradouro para onde parte do que aprendemos é consolidada."],["Chunking","Agrupar itens soltos em blocos com significado para caber mais na memória de trabalho."],["Efeito do espaçamento","Distribuir o estudo no tempo retém mais do que concentrá-lo numa única sessão."],["Cramming","Estudar tudo numa maratona única; útil no curtíssimo prazo, ruim para reter."],["Prática de recuperação","Tentar lembrar ativamente (testar-se) em vez de reler."],["Efeito de testar","O ganho de memória que vem de se testar, em vez de reencontrar a informação."],["Repetição espaçada","Revisar cada item em intervalos crescentes, mais os difíceis e menos os fáceis."],["Sistema Leitner","Método de fichas em caixas: acertos avançam a ficha; erros a devolvem à primeira caixa."],["Intercalação","Alternar entre assuntos ou tipos de problema, em vez de estudar em blocos fixos."],["Elaboração","Explicar com as próprias palavras e conectar o novo ao que já se sabe."],["Codificação dupla","Combinar palavra e imagem para reforçar a memória por dois canais."],["Técnica Feynman","Explicar um conceito de forma simples para revelar (e preencher) os buracos do entendimento."],["Mnemônico","Truque que dá estrutura ao arbitrário (acróstico, rima, imagem) para facilitar a memória."],["Palácio da memória (loci)","Associar itens a pontos de um lugar familiar percorrido mentalmente."],["Método Pomodoro","Blocos de ~25 min de foco seguidos de pausas curtas."],["Consolidação","Processo de estabilizar a memória do aprendido, boa parte dele durante o sono."],["Dificuldades desejáveis","Obstáculos que atrapalham no curto prazo mas melhoram o aprendizado no longo."],["Fluência (ilusão de)","Sensação de domínio criada por reler/grifar, sem retenção real correspondente."],["Metacognição","Capacidade de julgar o próprio aprendizado e perceber quando a sensação engana."],["Método Cornell","Formato de anotação (palavras-chave, notas e resumo) que vira material de autoteste."],["SQ3R","Roteiro de leitura ativa: Survey, Question, Read, Recite, Review."]];
+const QUIZ = [
+  {q:"A curva do esquecimento mostra que…",o:["esquecemos a uma taxa constante","esquecemos rápido no início e mais devagar depois","nunca esquecemos o que entendemos","só esquecemos sob estresse"],c:1,e:"A perda é mais acentuada logo após aprender e desacelera com o tempo — e revisar suaviza a queda."},
+  {q:"Com o mesmo tempo total, o que retém mais?",o:["5 horas num único dia","1 hora por dia durante 5 dias","tudo na véspera, sob pressão","depende só do talento"],c:1,e:"É o efeito do espaçamento: distribuir vence concentrar."},
+  {q:"O que fortalece mais a memória?",o:["reler o material","grifar bastante","testar-se (recuperação)","ouvir de novo em áudio"],c:2,e:"O esforço de puxar da memória é o que a treina; reler é passivo."},
+  {q:"No sistema Leitner, ao errar um card, ele…",o:["avança para a próxima caixa","volta à primeira caixa","é descartado","não muda de lugar"],c:1,e:"Erro devolve a ficha ao início; acerto a avança para revisões mais espaçadas."},
+  {q:"Intercalação (interleaving) significa…",o:["estudar um assunto até dominar antes do próximo","alternar entre assuntos ou tipos de problema","estudar sempre em silêncio","revisar só na véspera"],c:1,e:"Misturar treina a escolher qual abordagem usar — o bloco fixo não."},
+  {q:"Codificação dupla combina…",o:["dois idiomas","palavra e imagem","dois professores","teoria e prática"],c:1,e:"Canais verbal e visual se reforçam (teoria de Allan Paivio)."},
+  {q:"“Dificuldades desejáveis” são…",o:["obstáculos que atrapalham sempre","obstáculos que atrapalham no curto prazo mas ajudam no longo","provas difíceis demais","matérias que ninguém entende"],c:1,e:"Conceito de Robert Bjork: o esforço que parece piorar no momento melhora a retenção."},
+  {q:"Chunking é…",o:["dividir o estudo em vários dias","agrupar itens em blocos com significado","apagar o que não interessa","estudar em grupo"],c:1,e:"Agrupar economiza espaço na memória de trabalho, que é pequena."},
+  {q:"A técnica Feynman consiste em…",o:["fazer resumos coloridos","explicar o conceito de forma simples, como a uma criança","decorar fórmulas","ler em voz alta várias vezes"],c:1,e:"Explicar simples revela onde está o buraco do entendimento."},
+  {q:"O palácio da memória serve melhor para…",o:["compreender teorias abstratas","memorizar sequências e listas","calcular mais rápido","escrever redações"],c:1,e:"O método dos loci é ideal para material em ordem; não substitui a compreensão."},
+  {q:"No método Pomodoro, um ciclo típico é…",o:["2 horas sem parar","~25 min de foco + pausa curta","estudar só quando der vontade","alternar 3 matérias por minuto"],c:1,e:"Blocos focados com pausas; a cada 4 ciclos, uma pausa maior."},
+  {q:"Sobre sono e estudo, o mais correto é…",o:["virar a noite ajuda a fixar","o sono consolida o que você aprendeu","dormir atrapalha a memória","tanto faz para o aprendizado"],c:1,e:"Boa parte da consolidação ocorre dormindo; virar a noite costuma sair pela culatra."}
+];
+const REFERENCES = [
+  {who:"Hermann Ebbinghaus",work:"Über das Gedächtnis (Sobre a memória)",yr:"1885",desc:"Estudo pioneiro sobre esquecimento, revisão e o efeito do espaçamento."},
+  {who:"Peter Brown, Henry Roediger & Mark McDaniel",work:"Make It Stick: The Science of Successful Learning",yr:"2014",desc:"Síntese acessível de recuperação, espaçamento, intercalação e ilusões de aprendizagem."},
+  {who:"Barbara Oakley",work:"A Mind for Numbers e o curso “Learning How to Learn” (com Terrence Sejnowski)",yr:"2014",desc:"Aplicação prática de técnicas de estudo; um dos cursos on-line mais populares do tema."},
+  {who:"George A. Miller",work:"“The Magical Number Seven, Plus or Minus Two”",yr:"1956",desc:"Artigo clássico sobre os limites da memória de trabalho."},
+  {who:"Allan Paivio",work:"Teoria da dupla codificação (obra de referência: Mental Representations)",yr:"1986",desc:"Base teórica da combinação de palavra e imagem."},
+  {who:"Robert A. Bjork",work:"Conceito de “desirable difficulties” (dificuldades desejáveis)",yr:"—",desc:"Por que o esforço que dificulta no curto prazo melhora o aprendizado."},
+  {who:"Sebastian Leitner",work:"So lernt man lernen (Assim se aprende a aprender)",yr:"1972",desc:"Origem do sistema de fichas em caixas para repetição espaçada."},
+  {who:"Piotr Woźniak",work:"Algoritmo do SuperMemo (repetição espaçada digital)",yr:"—",desc:"Base dos agendadores de flashcards modernos."},
+  {who:"Francesco Cirillo",work:"A Técnica Pomodoro",yr:"fim dos anos 1980",desc:"Estrutura de blocos de foco com pausas."},
+  {who:"Walter Pauk",work:"How to Study in College (método de anotações Cornell)",yr:"—",desc:"Formato de anotação que vira material de autoteste."},
+  {who:"Francis P. Robinson",work:"Effective Study (método SQ3R)",yr:"c. 1946",desc:"Roteiro de leitura ativa em cinco passos."}
+];
+const FAQ = [
+  ["Quanto tempo por dia eu preciso?","Menos do que você imagina. 20 a 30 minutos consistentes rendem mais que maratonas esporádicas. O que importa é a regularidade, não a duração heroica."],
+  ["Preciso de aplicativos pagos?","Não. O próprio app deste curso já faz repetição espaçada. Existem também ferramentas gratuitas. O método vale mais que o app."],
+  ["Isso serve para qualquer matéria?","Sim — de idiomas a medicina, de concursos a habilidades técnicas. Os princípios (espaçar, recuperar, intercalar, dormir) se aplicam a fatos, conceitos e boa parte das habilidades."],
+  ["Não gosto de flashcards. E agora?","Flashcards são um meio, não um fim. O princípio é a recuperação espaçada — você pode aplicá-lo com perguntas ao fim do capítulo, autoexplicação (Feynman) ou o passo Recite do SQ3R."],
+  ["Repetição espaçada funciona para habilidades práticas (tocar, programar)?","O princípio de espaçar a prática e recuperar ajuda muito, mas habilidades também exigem prática deliberada do próprio gesto — não só cartões de teoria."],
+  ["Quantos flashcards devo criar?","Poucos e bem feitos. Uma ideia por card, pergunta clara e resposta curta. Qualidade acima de quantidade; baralho gigante que você não revisa não serve."],
+  ["Isso funciona igual para todo mundo?","As pessoas variam em ritmo e preferências, mas os princípios centrais são amplamente aplicáveis. Ajuste as ferramentas e o horário a você — sem abandonar espaçar, recuperar e dormir bem."]
+];
+const STORE_KEY = "aprender_rapido_v2";
+const DAY = 86400000;
+const BOXES = [0, 1, 3, 7, 16, 35];
+let state = load();
+function freshState(){
+  const cards = {};
+  LESSONS.forEach((l,li)=>l.cards.forEach((c,i)=>{ cards[li+"-"+i] = {box:0, due:0, lesson:li, q:c.q, a:c.a}; }));
+  return { visited:{}, cards };
+}
+function load(){
+  try{
+    const raw = localStorage.getItem(STORE_KEY);
+    if(!raw) return freshState();
+    const s = JSON.parse(raw); const fresh = freshState();
+    for(const k in fresh.cards){ if(s.cards && s.cards[k]) fresh.cards[k] = {...fresh.cards[k], box:s.cards[k].box||0, due:s.cards[k].due||0}; }
+    fresh.visited = s.visited || {}; return fresh;
+  }catch(e){ return freshState(); }
+}
+function save(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){} }
+
+const views = {};
+["home","lesson","practice","quiz","plan","glossary","references","faq"].forEach(v=>views[v]=document.getElementById("view-"+v));
+function show(view){
+  Object.values(views).forEach(v=>v.classList.remove("active"));
+  views[view].classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"}); closeMenu();
+}
+function go(target){
+  if(target==="home"){ show("home"); }
+  else if(target==="practice"){ renderPractice(); show("practice"); }
+  else if(target==="quiz"){ renderQuiz(); show("quiz"); }
+  else if(target==="plan"){ show("plan"); }
+  else if(target==="glossary"){ show("glossary"); }
+  else if(target==="references"){ show("references"); }
+  else if(target==="faq"){ show("faq"); }
+  else if(target && target.startsWith("lesson-")){ openLesson(parseInt(target.split("-")[1],10)); }
+  updateNav();
+}
+document.addEventListener("click", e=>{ const el = e.target.closest("[data-go]"); if(el){ go(el.getAttribute("data-go")); } });
+
+function buildNav(){
+  let html = "";
+  MODULES.forEach((m,mi)=>{
+    html += '<div class="nav-mod">Módulo '+(mi+1)+' · '+m.t+'</div>';
+    m.ids.forEach(id=>{
+      html += '<button class="nav-item" data-go="lesson-'+id+'" data-lesson="'+id+'"><span class="num">'+(id+1)+'</span><span class="txt">'+LESSONS[id].title+'</span><span class="tick">✓</span></button>';
+    });
+  });
+  document.getElementById("navLessons").innerHTML = html;
+}
+function buildHome(){
+  document.getElementById("homeModules").innerHTML = MODULES.map((m,mi)=>
+    '<div class="mod-block"><div class="mod-title"><span class="mi">Módulo '+(mi+1)+'</span> · '+m.t+'</div><div class="les-cards">'+
+    m.ids.map(id=>'<div class="les-card" data-go="lesson-'+id+'"><div class="n">AULA '+String(id+1).padStart(2,"0")+'</div><h4>'+LESSONS[id].title+'</h4><p>'+LESSONS[id].short+'</p><span class="badge-done" data-done="'+id+'" style="display:none">✓</span></div>').join("")+
+    '</div></div>').join("");
+  document.getElementById("planWeek").innerHTML = PLAN.map(p=>'<div class="day"><h5>'+p.d+'</h5><p>'+p.t+'</p></div>').join("");
+  document.getElementById("stat-cards").textContent = Object.keys(state.cards).length;
+  document.getElementById("glossList").innerHTML = GLOSSARY.map(g=>'<div class="gloss-item" data-term="'+g[0].toLowerCase()+'"><dt>'+g[0]+'</dt><dd>'+g[1]+'</dd></div>').join("");
+  document.getElementById("refList").innerHTML = REFERENCES.map(r=>'<div class="ref-item"><span class="who">'+r.who+'</span>. <span class="work">'+r.work+'</span>'+(r.yr!=="—"?' <span class="yr">('+r.yr+')</span>':'')+'<div class="desc">'+r.desc+'</div></div>').join("");
+  document.getElementById("faqList").innerHTML = FAQ.map(f=>'<details class="faq"><summary>'+f[0]+'</summary><p>'+f[1]+'</p></details>').join("");
+}
+function updateNav(){
+  let done = 0;
+  LESSONS.forEach((l,id)=>{
+    const visited = !!state.visited[id]; if(visited) done++;
+    const nav = document.querySelector('.nav-item[data-lesson="'+id+'"]'); if(nav) nav.classList.toggle("done", visited);
+    const badge = document.querySelector('[data-done="'+id+'"]'); if(badge) badge.style.display = visited ? "block" : "none";
+  });
+  document.getElementById("stat-progress").textContent = Math.round(done/LESSONS.length*100) + "%";
+  document.querySelectorAll(".nav-item").forEach(n=>n.classList.remove("active"));
+}
+function strip(html){ const d=document.createElement("div"); d.innerHTML=html; return d.textContent||""; }
+function openLesson(id){
+  const l = LESSONS[id]; if(!l) return;
+  state.visited[id] = true; save();
+  const prev = id>0 ? '<button class="btn" data-go="lesson-'+(id-1)+'">← Aula '+id+'</button>' : '<button class="btn" data-go="home">← Início</button>';
+  const next = id<LESSONS.length-1 ? '<button class="btn primary" data-go="lesson-'+(id+1)+'">Aula '+(id+2)+' →</button>' : '<button class="btn primary" data-go="practice">Ir praticar ⚡</button>';
+  const mi = MODULES.findIndex(m=>m.ids.includes(id));
+  views.lesson.innerHTML =
+    '<div class="lesson-head"><div class="kicker">Aula '+String(id+1).padStart(2,"0")+' de 14 <span style="color:var(--muted)">·</span> Módulo '+(mi+1)+' <span style="color:var(--muted)">·</span> '+l.short+'</div><h2>'+l.title+'</h2></div>'+
+    '<div class="block"><span class="tag">Objetivo</span><p>'+l.goal+'</p></div>'+
+    '<div class="block"><span class="tag">Conceito</span>'+l.concept.map(p=>'<p>'+p+'</p>').join("")+'</div>'+
+    '<div class="block sci"><span class="tag">Base científica</span>'+l.science.map(p=>'<p>'+p+'</p>').join("")+'<div class="note">Princípio editorial deste curso: nenhuma fonte, citação ou número é inventado. Onde há incerteza, ela é sinalizada — confira a fonte primária antes de citar dados específicos.</div></div>'+
+    '<div class="block pitfall"><span class="tag">Erros comuns</span><p>'+l.pitfall+'</p></div>'+
+    '<div class="block exercise"><span class="tag">Exercício prático</span><p>'+l.exercise+'</p></div>'+
+    '<div class="lesson-foot"><button class="btn ghost" id="speakLesson">🔊 Ouvir esta aula</button><div class="nav-btns">'+prev+next+'</div></div>';
+  show("lesson");
+  document.getElementById("speakLesson").addEventListener("click", ()=>{ speak(l.title+". Objetivo: "+strip(l.goal)+". Conceito: "+l.concept.map(strip).join(" ")+". Erros comuns: "+strip(l.pitfall)+". Exercício: "+strip(l.exercise)); });
+  updateNav(); const nav = document.querySelector('.nav-item[data-lesson="'+id+'"]'); if(nav) nav.classList.add("active");
+}
+
+let queue=[], current=null, flipped=false, sessionDone=0, sessionTotal=0;
+function dueCards(){ const now=Date.now(); return Object.entries(state.cards).filter(e=>e[1].due<=now).sort((a,b)=>a[1].due-b[1].due).map(e=>e[0]); }
+function renderPractice(){
+  updateDeckStats(); queue=dueCards(); sessionTotal=queue.length; sessionDone=0;
+  if(queue.length===0){
+    document.getElementById("practiceArea").innerHTML = '<div class="empty-deck"><div class="big">Baralho em dia ✓</div><p>Nenhum card vencido agora. Volte mais tarde — os intervalos crescem a cada acerto.<br>Quer treinar assim mesmo? <button class="btn ghost" id="forceAll" style="margin-top:10px">Revisar todos os cards</button></p></div>';
+    document.getElementById("forceAll").addEventListener("click",()=>{ queue=Object.keys(state.cards); sessionTotal=queue.length; sessionDone=0; nextCard(); });
+    return;
+  }
+  nextCard();
+}
+function updateDeckStats(){
+  const now=Date.now(), all=Object.values(state.cards);
+  const due=all.filter(c=>c.due<=now).length, learned=all.filter(c=>c.box>=3).length;
+  document.getElementById("deckStats").innerHTML = '<span class="chip"><span class="dot" style="background:var(--amber)"></span>Para revisar <b>'+due+'</b></span><span class="chip"><span class="dot" style="background:var(--teal)"></span>Bem fixados <b>'+learned+'</b></span><span class="chip"><span class="dot" style="background:var(--indigo)"></span>Total <b>'+all.length+'</b></span>';
+}
+function nextCard(){
+  flipped=false; if(queue.length===0){ finishSession(); return; }
+  current=queue[0]; const c=state.cards[current]; const pct=sessionTotal?Math.round(sessionDone/sessionTotal*100):0;
+  document.getElementById("practiceArea").innerHTML = '<div class="flashcard" id="card"><span class="side-label">Pergunta</span><span class="lesson-ref">Aula '+(c.lesson+1)+'</span><div class="q">'+c.q+'</div><div class="hint">Toque no card para ver a resposta</div></div><div class="progress-track"><div class="progress-fill" style="width:'+pct+'%"></div></div>';
+  document.getElementById("card").addEventListener("click", flipCard);
+}
+function flipCard(){
+  if(flipped) return; flipped=true; const c=state.cards[current];
+  document.querySelector(".flashcard").innerHTML = '<span class="side-label">Resposta</span><span class="lesson-ref">Aula '+(c.lesson+1)+'</span><div class="a">'+c.a+'</div><div class="interval-badge">Como você se saiu?</div>';
+  const bar=document.querySelector(".progress-fill"), area=document.getElementById("practiceArea");
+  const rate=document.createElement("div"); rate.className="rate-row";
+  rate.innerHTML = '<div class="rate again" data-r="0">Errei<small>rever já</small></div><div class="rate hard" data-r="1">Difícil<small>+'+BOXES[Math.max(1,Math.min(c.box,BOXES.length-1))]+'d</small></div><div class="rate easy" data-r="2">Fácil<small>+'+BOXES[Math.min(c.box+1,BOXES.length-1)]+'d</small></div>';
+  area.insertBefore(rate, bar?bar.parentNode:null);
+  rate.querySelectorAll(".rate").forEach(btn=>btn.addEventListener("click",()=>grade(parseInt(btn.getAttribute("data-r"),10))));
+}
+function grade(r){
+  const c=state.cards[current];
+  if(r===0){ c.box=0; c.due=Date.now(); }
+  else if(r===1){ c.box=Math.max(1,c.box); c.due=Date.now()+BOXES[Math.min(c.box,BOXES.length-1)]*DAY; }
+  else { c.box=Math.min(c.box+1,BOXES.length-1); c.due=Date.now()+BOXES[c.box]*DAY; }
+  save(); queue.shift(); if(r===0){ queue.push(current); } else { sessionDone++; }
+  updateDeckStats(); nextCard();
+}
+function finishSession(){
+  document.getElementById("practiceArea").innerHTML = '<div class="empty-deck"><div class="big">Sessão concluída ✓</div><p>Você revisou '+sessionTotal+' card(s). Os que acertou voltam mais tarde, com intervalo maior.<br>É assim que a repetição espaçada trabalha por você — um pouco a cada dia.</p><button class="btn primary" data-go="home" style="margin-top:14px">Voltar ao início</button></div>';
+  toast("Boa! Memória reforçada 💪");
+}
+document.getElementById("resetDeck").addEventListener("click",()=>{ if(confirm("Reiniciar todo o progresso do baralho? Isso zera os intervalos de todos os cards.")){ Object.values(state.cards).forEach(c=>{c.box=0;c.due=0;}); save(); renderPractice(); toast("Baralho reiniciado"); } });
+
+let qOrder=[], qIndex=0, qScore=0, qAnswered=false;
+function renderQuiz(){ qOrder=[...Array(QUIZ.length).keys()]; qIndex=0; qScore=0; qAnswered=false; showQuizQuestion(); }
+function showQuizQuestion(){
+  if(qIndex>=qOrder.length){ showQuizResult(); return; }
+  qAnswered=false; const item=QUIZ[qOrder[qIndex]];
+  document.getElementById("quizArea").innerHTML = '<div class="quiz-q"><div class="quiz-meta">Pergunta '+(qIndex+1)+' de '+qOrder.length+'</div><h3>'+item.q+'</h3><div id="opts">'+item.o.map((o,i)=>'<button class="opt" data-i="'+i+'">'+o+'</button>').join("")+'</div><div class="quiz-exp" id="exp"><b>Explicação:</b> '+item.e+'</div><div class="quiz-foot"><span class="quiz-score">Acertos: '+qScore+'/'+qIndex+'</span><button class="btn primary" id="nextQ" style="display:none">Próxima →</button></div></div>';
+  document.querySelectorAll("#opts .opt").forEach(btn=>btn.addEventListener("click",()=>answerQuiz(parseInt(btn.getAttribute("data-i"),10))));
+  document.getElementById("nextQ").addEventListener("click",()=>{ qIndex++; showQuizQuestion(); });
+}
+function answerQuiz(i){
+  if(qAnswered) return; qAnswered=true; const item=QUIZ[qOrder[qIndex]];
+  const opts=document.querySelectorAll("#opts .opt");
+  opts.forEach((btn,bi)=>{ btn.style.pointerEvents="none"; if(bi===item.c) btn.classList.add("correct"); else if(bi===i) btn.classList.add("wrong"); else btn.classList.add("dim"); });
+  if(i===item.c) qScore++;
+  document.getElementById("exp").classList.add("show");
+  document.getElementById("nextQ").style.display="inline-flex";
+  document.querySelector(".quiz-score").textContent = "Acertos: "+qScore+"/"+(qIndex+1);
+}
+function showQuizResult(){
+  const pct=Math.round(qScore/QUIZ.length*100); let msg;
+  if(pct>=85) msg="Excelente domínio. Você está pronto para aplicar tudo na sua rotina.";
+  else if(pct>=60) msg="Bom caminho. Revise as aulas dos temas que você errou.";
+  else msg="Sem problema — releia (ou melhor, se teste com os flashcards) e volte aqui.";
+  document.getElementById("quizArea").innerHTML = '<div class="quiz-q"><div class="quiz-result"><div class="pct">'+pct+'%</div><div class="msg">'+qScore+' de '+QUIZ.length+' corretas. '+msg+'</div><button class="btn primary" id="retry">Refazer o quiz</button><button class="btn" data-go="practice" style="margin-left:8px">Ir aos flashcards ⚡</button></div></div>';
+  document.getElementById("retry").addEventListener("click",renderQuiz);
+}
+
+document.getElementById("glossSearch").addEventListener("input",e=>{
+  const q=e.target.value.toLowerCase().trim();
+  document.querySelectorAll(".gloss-item").forEach(it=>{ const hit = it.getAttribute("data-term").includes(q) || it.textContent.toLowerCase().includes(q); it.style.display = hit ? "block" : "none"; });
+});
+
+let narrationOn=false, ptVoice=null;
+function pickVoice(){ const v=speechSynthesis.getVoices(); ptVoice = v.find(x=>/francisca/i.test(x.name)&&/pt/i.test(x.lang)) || v.find(x=>/pt-BR/i.test(x.lang)) || v.find(x=>/pt/i.test(x.lang)) || null; }
+if("speechSynthesis" in window){ pickVoice(); speechSynthesis.onvoiceschanged=pickVoice; }
+function speak(text){
+  if(!("speechSynthesis" in window)){ toast("Narração não suportada neste navegador"); return; }
+  speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(text); u.lang="pt-BR"; u.rate=1; u.pitch=1; if(ptVoice) u.voice=ptVoice; speechSynthesis.speak(u);
+}
+document.getElementById("narrateBtn").addEventListener("click",()=>{
+  narrationOn=!narrationOn; document.getElementById("narrateBtn").classList.toggle("on",narrationOn);
+  if(narrationOn){ pickVoice(); toast(ptVoice?"Narração ligada ("+ptVoice.name+")":"Narração ligada (voz padrão)"); if(document.querySelector("#view-lesson.active")){ const b=document.getElementById("speakLesson"); if(b) b.click(); } }
+  else { speechSynthesis.cancel(); toast("Narração desligada"); }
+});
+
+const sideNav=document.getElementById("sideNav"), scrim=document.getElementById("scrim");
+function openMenu(){ sideNav.classList.add("open"); scrim.classList.add("show"); }
+function closeMenu(){ sideNav.classList.remove("open"); scrim.classList.remove("show"); }
+document.getElementById("menuBtn").addEventListener("click",openMenu);
+scrim.addEventListener("click",closeMenu);
+document.getElementById("practiceBtn").addEventListener("click",()=>go("practice"));
+let toastTimer;
+function toast(msg){ const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove("show"),2600); }
+
+buildNav(); buildHome(); updateNav();
+/* PWA hook (Fase 2): descomente ao adicionar manifest.json + sw.js
+if("serviceWorker" in navigator){ window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js")); } */
+</script>
+</body>
+</html>
