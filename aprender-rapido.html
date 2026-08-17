@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <a href="https://lojasdecastro.com.br" style="display:inline-block;margin:14px 0 0 20px;background:#35d0a5;color:#06231b;text-decoration:none;font:700 14px system-ui,-apple-system,sans-serif;padding:9px 15px;border-radius:10px">↩ Voltar ao site DeCastro</a>
+ <a href="https://lojasdecastro.com.br" style="display:inline-block;margin:14px 0 0 20px;background:#35d0a5;color:#06231b;text-decoration:none;font:700 14px system-ui,-apple-system,sans-serif;padding:9px 15px;border-radius:10px">↩ Voltar ao site DeCastro</a>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -171,10 +171,40 @@
     .stat-row{grid-template-columns:1fr}
     .hero{padding:30px 24px}
   }
+
+  /* ===== Ajuste de legibilidade — escala de fontes maior (texto=16, subtítulo=18, título=20/22) ===== */
+  .block p{font-size:17px}
+  .block h3{font-size:20px}
+  .note{font-size:14.5px}
+  .hero p{font-size:17.5px}
+  .section-sub{font-size:15.5px}
+  .les-card h4{font-size:17px}
+  .les-card p{font-size:13.5px}
+  .kicker{font-size:12px}
+  .gloss-item dt{font-size:18px}
+  .gloss-item dd{font-size:16px}
+  .quiz-q h3{font-size:21px}
+  .opt{font-size:16.5px}
+  .quiz-exp{font-size:16px}
+  .quiz-result .msg{font-size:17.5px}
+  .flashcard .q{font-size:clamp(22px,3.2vw,28px)}
+  .flashcard .a{font-size:18px}
+  .day h5{font-size:12px}
+  .day p{font-size:15px}
+  .ref-item{font-size:17px}
+  .ref-item .desc{font-size:15px}
+  .ref-item .yr{font-size:13px}
+  details.faq summary{font-size:17px}
+  details.faq p{font-size:16px}
+  .chip{font-size:13px}
+  .nav-item{font-size:14px}
+  .stat .l{font-size:13.5px}
+  .lesson-head h2{font-size:clamp(26px,3.6vw,36px)}
+  .hero h2{font-size:clamp(30px,4.6vw,46px)}
 </style>
 </head>
 <body>
-  <div class="app">
+<div class="app">
   <header class="top">
     <div class="brand">
       <span class="mark" aria-hidden="true">
@@ -184,7 +214,7 @@
           <circle cx="34" cy="14" r="2.6" fill="#2FA88F"/>
         </svg>
       </span>
-      <div><h1>Aprender Rápido</h1><span>Memória &amp; Repetição Espaçada</span><h1>DeCastro | O canal do conhecimento</h1></div>
+      <div><h1>Aprender Rápido</h1><span>Memória &amp; Repetição Espaçada</span></div>
     </div>
     <div class="top-actions">
       <button class="btn ghost menu-toggle" id="menuBtn" aria-label="Abrir menu">☰ Menu</button>
@@ -612,5 +642,4 @@ buildNav(); buildHome(); updateNav();
 if("serviceWorker" in navigator){ window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js")); } */
 </script>
 </body>
-  <a href="https://lojasdecastro.com.br" style="display:inline-block;margin:14px 0 0 20px;background:#35d0a5;color:#06231b;text-decoration:none;font:700 14px system-ui,-apple-system,sans-serif;padding:9px 15px;border-radius:10px">↩ Voltar ao site DeCastro</a>
 </html>
